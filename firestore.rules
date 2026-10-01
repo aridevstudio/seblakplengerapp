@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    // Orders Collection
+    match /orders/{orderId} {
+      allow read: if true;
+      allow create: if incoming().totalPrice is number 
+                    && incoming().status in ['pending', 'cooking', 'ready', 'delivered', 'cancelled']
+                    && incoming().customerName is string
+                    && incoming().menuName is string;
+      allow update, delete: if true;
+    }
+
+    // Franchise Inquiries
+    match /franchise_inquiries/{inquiryId} {
+      allow read: if true;
+      allow create: if incoming().name is string
+                    && incoming().phone is string
+                    && incoming().packageChoice is string;
+      allow update, delete: if true;
+    }
+
+    // Inventory
+    match /inventory/{itemId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}

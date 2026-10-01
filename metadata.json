@@ -1,0 +1,6 @@
+{
+  "name": "Seblak Preanger Official",
+  "description": "Kuliner seblak & baso aci khas Sunda/Priangan otentik dengan Bumbu Rempah Merah dan Aroma Daun Jeruk Fresh. Sensasi kuah pedas gurih nagih!",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

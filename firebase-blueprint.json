@@ -1,0 +1,70 @@
+{
+  "entities": {
+    "Order": {
+      "title": "Order",
+      "description": "Customer orders made via landing page or admin",
+      "type": "object",
+      "properties": {
+        "customerName": { "type": "string", "maxLength": 100 },
+        "customerPhone": { "type": "string", "maxLength": 30 },
+        "menuId": { "type": "string", "maxLength": 100 },
+        "menuName": { "type": "string", "maxLength": 150 },
+        "spiceLevel": { "type": "number" },
+        "spiceLevelName": { "type": "string", "maxLength": 50 },
+        "quantity": { "type": "number" },
+        "toppings": { "type": "string", "maxLength": 500 },
+        "notes": { "type": "string", "maxLength": 500 },
+        "totalPrice": { "type": "number" },
+        "platform": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "enum": ["pending", "cooking", "ready", "delivered", "cancelled"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["customerName", "menuName", "totalPrice", "status", "createdAt"]
+    },
+    "FranchiseInquiry": {
+      "title": "FranchiseInquiry",
+      "description": "Prospective partners inquiries for franchise packages",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 30 },
+        "city": { "type": "string", "maxLength": 100 },
+        "packageChoice": { "type": "string", "maxLength": 100 },
+        "budgetRange": { "type": "string", "maxLength": 100 },
+        "notes": { "type": "string", "maxLength": 500 },
+        "status": { "type": "string", "enum": ["new", "contacted", "meeting_scheduled", "deal_closed", "rejected"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "phone", "city", "packageChoice", "status", "createdAt"]
+    },
+    "InventoryItem": {
+      "title": "InventoryItem",
+      "description": "Stock of raw ingredients and packaging (pouch, bumbu rempah, kerupuk, cuanki)",
+      "type": "object",
+      "properties": {
+        "itemName": { "type": "string", "maxLength": 150 },
+        "category": { "type": "string", "maxLength": 50 },
+        "stock": { "type": "number" },
+        "unit": { "type": "string", "maxLength": 30 },
+        "minThreshold": { "type": "number" },
+        "costPerUnit": { "type": "number" },
+        "lastRestocked": { "type": "string" }
+      },
+      "required": ["itemName", "category", "stock", "unit", "minThreshold"]
+    }
+  },
+  "firestore": {
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Collection of all customer orders"
+    },
+    "/franchise_inquiries/{inquiryId}": {
+      "schema": "FranchiseInquiry",
+      "description": "Collection of prospective franchise investor contacts"
+    },
+    "/inventory/{itemId}": {
+      "schema": "InventoryItem",
+      "description": "Central kitchen stock and inventory tracking"
+    }
+  }
+}
